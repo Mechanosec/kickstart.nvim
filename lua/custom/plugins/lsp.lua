@@ -39,7 +39,7 @@ return {
           end
 
           -- Diagnostic keymaps
-          map('<leader>cq', vim.diagnostic.setloclist, 'Open diagnostic [Q]uickfix list')
+          map('<leader>cq', vim.diagnostic.setloclist, 'Open Diagnostic [Q]uickfix List')
           map('<leader>ca', vim.lsp.buf.code_action, 'Goto Code [A]ction', false, { 'n', 'x' })
 
           map('gr', require('telescope.builtin').lsp_references, '[G]oto [R]eferences', true)
@@ -182,5 +182,27 @@ return {
         automatic_installation = false,
       }
     end,
+  },
+  {
+    'pmizio/typescript-tools.nvim',
+    dependencies = { 'nvim-lua/plenary.nvim', 'neovim/nvim-lspconfig' },
+    opts = {},
+    keys = {
+      {
+        '<leader>cio',
+        '<cmd>TSToolsOrganizeImports<cr>',
+        desc = '[O]rganize Imports',
+      },
+      {
+        '<leader>cis',
+        '<cmd>TSToolsSortImports<cr>',
+        desc = '[S]ort Imports',
+      },
+      {
+        '<leader>cr',
+        '<cmd>TSToolsRenameFile<cr>',
+        desc = '[R]ename File',
+      },
+    },
   },
 }
