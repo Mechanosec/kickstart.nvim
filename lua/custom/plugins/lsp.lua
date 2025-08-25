@@ -135,6 +135,8 @@ return {
 
       local capabilities = require('blink.cmp').get_lsp_capabilities()
       local servers = {
+        dockerls = {},
+        docker_compose_language_service = {},
         prismals = {
           on_init = function(client)
             client.server_capabilities.documentFormattingProvider = false
