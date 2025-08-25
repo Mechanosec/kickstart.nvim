@@ -84,9 +84,9 @@ I hope you enjoy your Neovim journey,
 P.S. You can delete this when you're done too. It's your config now! :)
 --]]
 
-require 'options'
-require 'keymap'
-require 'autocmd'
+require 'custom.config.keymap'
+require 'custom.config.options'
+require 'custom.config.autocmd'
 
 -- [[ Install `lazy.nvim` plugin manager ]]
 --    See `:help lazy.nvim.txt` or https://github.com/folke/lazy.nvim for more info
