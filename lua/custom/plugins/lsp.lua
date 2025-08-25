@@ -135,6 +135,12 @@ return {
 
       local capabilities = require('blink.cmp').get_lsp_capabilities()
       local servers = {
+        prismals = {
+          on_init = function(client)
+            client.server_capabilities.documentFormattingProvider = true
+            client.server_capabilities.documentFormattingRangeProvider = true
+          end,
+        },
         vtsls = {
           settings = {
             typescript = {
