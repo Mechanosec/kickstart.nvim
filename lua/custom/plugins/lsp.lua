@@ -1,17 +1,11 @@
 return {
   {
-
-    -- Main LSP Configuration
     'neovim/nvim-lspconfig',
     dependencies = {
       { 'mason-org/mason.nvim', opts = {} },
       'mason-org/mason-lspconfig.nvim',
       'WhoIsSethDaniel/mason-tool-installer.nvim',
-
-      -- Useful status updates for LSP.
       { 'j-hui/fidget.nvim', opts = {} },
-
-      -- Allows extra capabilities provided by blink.cmp
       'saghen/blink.cmp',
       {
         'SmiteshP/nvim-navbuddy',
@@ -22,6 +16,11 @@ return {
         },
         opts = { lsp = { auto_attach = true } },
       },
+      -- {
+      --   'pmizio/typescript-tools.nvim',
+      --   dependencies = { 'nvim-lua/plenary.nvim', 'neovim/nvim-lspconfig' },
+      --   opts = {},
+      -- },
     },
     config = function()
       vim.api.nvim_create_autocmd('LspAttach', {
@@ -41,14 +40,17 @@ return {
           -- Diagnostic keymaps
           map('<leader>cq', vim.diagnostic.setloclist, 'Open Diagnostic [Q]uickfix List')
           map('<leader>ca', vim.lsp.buf.code_action, 'Goto Code [A]ction', false, { 'n', 'x' })
-
+          map('<leader>cio', function()
+            vim.lsp.buf.code_action { context = { only = { 'source.organizeImports' } }, apply = true }
+          end, '[O]rganize Imports')
+          map('<leader>cR', '<cmd>TSToolsRenameFile<cr>', '[R]ename File')
+          map('<leader>cr', vim.lsp.buf.rename, '[R]ename')
           map('gr', require('telescope.builtin').lsp_references, '[G]oto [R]eferences', true)
           map('gd', require('telescope.builtin').lsp_definitions, '[G]oto [D]efinition')
           map('gD', vim.lsp.buf.declaration, '[G]oto [D]eclaration')
           map('gI', require('telescope.builtin').lsp_implementations, '[G]oto [I]mplementation')
           map('gy', require('telescope.builtin').lsp_type_definitions, '[G]oto [T]ype Definition')
 
-          -- map('grn', vim.lsp.buf.rename, '[R]e[n]ame')
           -- WARN: This is not Goto Definition, this is Goto Declaration.
           --  For example, in C this would take you to the header.
           -- map('gO', require('telescope.builtin').lsp_document_symbols, 'Open Document Symbols')
@@ -144,6 +146,10 @@ return {
           end,
         },
         vtsls = {
+          on_init = function(client)
+            client.server_capabilities.documentFormattingProvider = false
+            client.server_capabilities.documentFormattingRangeProvider = false
+          end,
           settings = {
             typescript = {
               preferences = {
@@ -158,6 +164,10 @@ return {
           },
         },
         lua_ls = {
+          on_init = function(client)
+            client.server_capabilities.documentFormattingProvider = false
+            client.server_capabilities.documentFormattingRangeProvider = false
+          end,
           settings = {
             Lua = {
               completion = {
@@ -182,27 +192,5 @@ return {
         automatic_installation = false,
       }
     end,
-  },
-  {
-    'pmizio/typescript-tools.nvim',
-    dependencies = { 'nvim-lua/plenary.nvim', 'neovim/nvim-lspconfig' },
-    opts = {},
-    keys = {
-      {
-        '<leader>cio',
-        '<cmd>TSToolsOrganizeImports<cr>',
-        desc = '[O]rganize Imports',
-      },
-      {
-        '<leader>cis',
-        '<cmd>TSToolsSortImports<cr>',
-        desc = '[S]ort Imports',
-      },
-      {
-        '<leader>cr',
-        '<cmd>TSToolsRenameFile<cr>',
-        desc = '[R]ename File',
-      },
-    },
   },
 }
