@@ -25,16 +25,16 @@ return {
     },
     lazy = false,
     keys = {
-      { '<leader>e', ':Neotree reveal<CR>', desc = '[T]ree', silent = true },
+      { '<leader>e', ':Neotree reveal right<CR>', desc = '[T]ree', silent = true },
     },
     opts = {
-      -- filesystem = {
-      --   window = {
-      --     mappings = {
-      --       ['\\'] = 'close_window',
-      --     },
-      --   },
-      -- },
+      filesystem = {
+        window = {
+          mappings = {
+            ['<leader>e'] = 'close_window',
+          },
+        },
+      },
     },
   },
 }
